@@ -10,13 +10,25 @@ const ThoughtSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        // need to format date
+        // using the .toISOString for the date formatting
+        get: createdAtVal => createdAtVal.toISOString()
     },
     username: {
         type: String,
         required: true
     },
     reactions: [
-        {}
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Reaction'
+        }
     ]
 })
+//reactionCount virtual to retrieve reaction length
+ThoughtSchema.virtual('reactioncCount').get(function() {
+    return this.length;
+})
+
+const Thought = model('Thought', ThoughtSchema);
+
+module.exports = Thought;
