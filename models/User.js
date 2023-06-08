@@ -12,7 +12,8 @@ const UserSchema = new Schema({
         type: String, 
         required: true,
         unique: true,
-        // need to include email validation
+        // email matching regex from previous module
+        match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
 
     },
     //Refers to the 'Thought' model object IDs

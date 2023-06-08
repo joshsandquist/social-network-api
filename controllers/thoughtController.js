@@ -79,14 +79,13 @@ const updateThought = async (req, res) => {
       if (!thought) {
         return res.status(400).json({ message: 'No thought found with this Id!' });
       }
-
-      //finding user associated with thought and deleting from users thoughts array
-      const user = await User.findById(thought.userId);
+      // using findOne to match the username property of the thought to delete from
+      const user = await User.findOne({ username: thought.username });
       user.thoughts.pull(thought._id);
       await user.save();
-  
       res.json({ message: 'Thought deleted successfully!' });
-    } catch (error) {
+    } 
+    catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server Error' });
     }
@@ -115,36 +114,6 @@ const updateThought = async (req, res) => {
 
   //contoller to remove reaction from a thought
 
-  const deleteReaction = async (req, res) => {
-    try {
-      const thought = await Thought.findById(req.params.thoughtId);
-      if (!thought) {
-        return res.status(400).json({ message: 'No thought found with this Id!' });
-      }
-      // creating a variable 'reaction' that will be compared with the paramater reactionId
-      let reaction;
-      //itterating through thought's reactions array
-      for (let i = 0; i < thought.reactions.length; i++) {
-        //checking if there is a match between the reactions array and the paramater    
-        if (thought.reactions[i]._id === req.params.reactionId) {
-            //if there is a match, use the mongoose pull method to remove the reaction by reaction._id
-          reaction = thought.reactions[i];
-          return thought.reactions.pull(reaction._id);
-        }
-      }
-  
-      if (!reaction) {
-        return res.status(400).json({ message: 'Reaction not found' });
-      }
-  
-      await thought.save();
-  
-      res.json({ message: 'Reaction removed successfully!' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Server Error' });
-    }
-  };
 
   module.exports = {
     getAllThoughts,
