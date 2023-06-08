@@ -122,5 +122,4 @@ const updateThought = async (req, res) => {
     updateThought,
     deleteThought,
     addReaction,
-    deleteReaction
   };
