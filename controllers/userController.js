@@ -1,4 +1,4 @@
-const User = require('../models/User')
+const User = require('../models/User.js')
 
 //defining User route functionality
 //Using async/await
