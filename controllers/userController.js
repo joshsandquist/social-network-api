@@ -73,6 +73,7 @@ const updateUser = async (req, res) => {
         if (!user) {
             return res.status(400).json({message: 'No user found with this Id!'})
         }
+        res.json({ message: 'User deleted successfully!' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server Error'})
@@ -82,23 +83,24 @@ const updateUser = async (req, res) => {
  //controller to add a friend to a user
  const addFriend = async (req, res) => {
     try {
-        const user = await User.findById(req.params.userid);
-        const friend = await User.findById(req.params.friendId);
-        //checking for valid ids
-        if (!user || !friend) {
-            return res.status(400).json({message: 'Id not found!'})
-        }
-        // checking the user friends array to see if friend already exists. If not, friend is added and updated using the mongoose save() method
-        if (!user.friends.includes(friend._id)) {
-            user.friends.push(friend._id)
-            await user.save()
-        }
+      const user = await User.findByIdAndUpdate(
+        req.params.userId,
+        //Using the mongodb $addtoset operator to add the paramter friend to friends array
+        { $addToSet: { friends: req.params.friendId } },
+        { new: true }
+      );
+  
+      if (!user) {
+        return res.status(400).json({ message: 'Id not found!' });
+      }
+  
+      res.json({ message: 'Friend added successfully!' });
     } 
     catch (error) {
-        console.error(error)
-        res.status(500).json({error: 'Server Error'})
+      console.error(error);
+      res.status(500).json({ error: 'Server Error' });
     }
- }
+  };
 
  //Controller to remove friend from users friend array
 
