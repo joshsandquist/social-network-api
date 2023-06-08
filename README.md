@@ -23,10 +23,18 @@
 
   ## Tests
   N/A
+  
+  ## Screenshots
+  
+  <img width="1507" alt="Screenshot 2023-06-08 at 3 46 35 PM" src="https://github.com/joshsandquist/social-network-api/assets/104536533/61905dd6-078d-41ff-823b-223008fa7e27">
 
   ## GitHub Repo
+  
+  https://github.com/joshsandquist/social-network-api
 
   ## Walkthrough Video
 
+  https://drive.google.com/file/d/1e19gNqabdUtnX2dxkDYtNfd9Sc7DNIx7/view?pli=1
+  
   ## Questions
   If you have any questions or comments about this application, please feel free to contact me on GitHub at https://github.com/jsandquist.
